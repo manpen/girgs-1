@@ -21,7 +21,7 @@ int main(int argc, char* argv[]) {
     const auto edgesSeed = 1400;
 
     using counter_with_padding = std::pair<uint64_t, char[64]>;
-    std::vector<counter_with_padding> num_edges_per_thread(omp_get_thread_num());
+    std::vector<counter_with_padding> num_edges_per_thread(omp_get_max_threads());
     for(auto& x: num_edges_per_thread) x.first = 0;
 
     auto addEdge = [&num_edges_per_thread] (int u, int v, int tid) {
