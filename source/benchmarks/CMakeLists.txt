@@ -31,3 +31,6 @@ endforeach()
 # add onw benchmarks
 add_subdirectory(hypergirgs-benchmark)
 add_subdirectory(math-benchmarks)
+if (OPTION_ALLOW_CXX17)
+    add_subdirectory(bitinterleaving-benchmark)
+endif()

@@ -72,6 +72,9 @@ option(OPTION_BUILD_TESTS     "Build tests."                                    
 option(OPTION_BUILD_BENCHMARKS "Build benchmarks."                                     OFF)
 option(OPTION_BUILD_EXAMPLES  "Build examples."                                        ON)
 option(OPTION_BUILD_DOCS      "Build documentation."                                   OFF)
+option(OPTION_ALLOW_CXX17     "Build components requirering CXX17"                     ON)
+option(OPTION_USE_PDEP        "Use PDEP Instruction (requires bmi2 instruction set)"   ON)
+
 
 
 #

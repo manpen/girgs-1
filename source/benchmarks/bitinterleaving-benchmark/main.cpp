@@ -4,40 +4,13 @@
 #include <vector>
 #include <random>
 
+#ifdef USE_PDEP
 #include <immintrin.h>
+#endif
+
+//#define CHECK_XREF_ONLY
 
 using T = unsigned int;
-
-// some infra-structure to automatically generate benchmarks:
-template <size_t D, typename Impl>
-static void do_benchmark(benchmark::State& state, Impl impl) {
-    const auto targetLevel = static_cast<unsigned>(state.range(0));
-
-    std::mt19937_64 prng;
-    std::uniform_int_distribution<T> distr;
-
-    std::vector<std::array<T, D> > points(1000);
-    for(auto& pt : points)
-        std::generate(pt.begin(), pt.end(), [&] {return distr(prng);});
-
-    const auto* it = points.data();
-    const auto* end = it + points.size();
-
-    for (auto _ : state) {
-        auto res = impl(*it, targetLevel);
-        benchmark::DoNotOptimize(res);
-        if (++it == end) it = points.data();
-    }
-}
-
-#define ADD_IMPL_BENCHMARK(X) \
- template <size_t D> \
- static void BM_ ## X (benchmark::State& state) {do_benchmark<D>(state, impl_ ## X<D>);} \
- BENCHMARK_TEMPLATE(BM_ ## X, 1)->RangeMultiplier(2)->Range(1, 32); \
- BENCHMARK_TEMPLATE(BM_ ## X, 2)->RangeMultiplier(2)->Range(1, 16); \
- BENCHMARK_TEMPLATE(BM_ ## X, 3)->RangeMultiplier(2)->Range(1, 10); \
- BENCHMARK_TEMPLATE(BM_ ## X, 4)->RangeMultiplier(2)->Range(1,  8); \
- BENCHMARK_TEMPLATE(BM_ ## X, 5)->RangeMultiplier(2)->Range(1,  6);
 
 ////////////////////////////////
 // CONTENDERS
@@ -61,6 +34,18 @@ template <size_t D>
 constexpr static auto impl_naive(const std::array<T, D>& coords, unsigned) -> typename std::enable_if<D == 1, T>::type  {
     return coords[0];
 }
+
+template<unsigned int D>
+constexpr static uint32_t impl_pattern(const std::array<uint32_t,D>& coords, unsigned) {
+
+    uint32_t res = 0u;
+    for(int i=0; i<32; ++i){
+        res |= ((coords[i%D]>>i/D) & 1) << i; // res[i] = coords[i%D][i/D]
+    }
+
+    return res;
+}
+
 
 // https://graphics.stanford.edu/~seander/bithacks.html#InterleaveBMN
 unsigned int clever_interleave2(unsigned int x, unsigned int y) {
@@ -154,55 +139,122 @@ constexpr static auto impl_clever(const std::array<T, D>& coords, unsigned targe
 }
 
 
-
-// PDEP based implementation
-// compute BitMask in which every D-th bit starting with the I-th is 1
-template <typename T, size_t D, size_t I, bool = false>
-struct impl_pdep_bitmask;
-
-template <typename T, size_t D, size_t I>
-struct impl_pdep_bitmask<T, D, I, true> {
-    static constexpr T mask = 0;
-};
-
-template <typename T, size_t D, size_t I>
-struct impl_pdep_bitmask<T, D, I, false> {
-    static constexpr T mask = (T{1} << I) | impl_pdep_bitmask<T, I+D, D, I+D >= std::numeric_limits<T>::digits>::mask;
-};
-
-// call pdep D times
-template <size_t D, size_t I = 0, bool = false>
-struct impl_pdep_invoke;
-
-template <size_t D, size_t I>
-struct impl_pdep_invoke<D, I, true> {
-    T operator() (const std::array<T, D>& coords) {return 0;}
-};
-
-template <size_t D, size_t I>
-struct impl_pdep_invoke<D, I, false> {
-    constexpr auto operator() (const std::array<T, D>& coords) noexcept {
-        if constexpr (D == I + 1) {
-            impl_pdep_invoke<D, I + 1, D == I + 1> rec;
-            return _pdep_u64(coords[I], impl_pdep_bitmask<T, D, I>::mask) | rec(coords);
-        } else {
-            constexpr auto mask = impl_pdep_bitmask<uint32_t, D, I>::mask | (static_cast<uint64_t>(impl_pdep_bitmask<uint32_t, D, I+1>::mask) << 32);
-            auto values = coords[I] | (static_cast<uint64_t>(coords[I+1]) << 32);
-            auto deposited = _pdep_u64(values, mask);
-
-            impl_pdep_invoke<D, I + 2, D < I + 2> rec;
-            return static_cast<uint32_t>(deposited | deposited >> 32) | rec(coords);
-        }
-    }
-};
-
-template <size_t D>
-constexpr static T impl_pdep(const std::array<T, D>& coords, unsigned) noexcept {
-    unsigned int result = 0u;
-    impl_pdep_invoke<D> rec;
-    return rec(coords);
+#ifdef USE_PDEP
+constexpr uint32_t highbits(int x) {
+    return static_cast<uint32_t>((1llu << x) - 1);
 }
 
-ADD_IMPL_BENCHMARK(clever)
+static uint32_t impl_pdep(uint32_t a) noexcept {
+    return a;
+}
+
+static uint32_t impl_pdep(uint32_t a, uint32_t b) noexcept {
+    auto values = (b << 16) | (a & 0xffff);
+    auto deposited = _pdep_u64(values, 0x55555555'55555555ull);
+    return static_cast<uint32_t>(deposited | (deposited >> 31));
+}
+
+static uint32_t impl_pdep(uint32_t a, uint32_t b, uint32_t c) noexcept {
+    const auto rec = impl_pdep(a, b);
+
+    const auto values = ((c & highbits(10)) << 22) | (rec & highbits(22));
+    const auto deposited = _pdep_u64(values, 0b00'100100100100100100100100100100'11011011011011011011011011011011);
+
+    return (deposited & highbits(32)) | (deposited >> 32);
+}
+
+static uint32_t impl_pdep(uint32_t a, uint32_t b, uint32_t c, uint32_t d) noexcept {
+    return impl_pdep(impl_pdep(a, c), impl_pdep(b, d));
+}
+
+static uint32_t impl_pdep(uint32_t a, uint32_t b, uint32_t c, uint32_t d, uint32_t e) noexcept {
+    const auto rec = impl_pdep(a,b,c,d);
+
+    const auto values = ((e & highbits(6)) << 26) | (rec & highbits(26));
+    const auto deposited = _pdep_u64(values, 0b00'100001000010000100001000010000'11011110111101111011110111101111);
+
+    return (deposited & highbits(32)) | (deposited >> 32);
+}
+
+// array based
+template <size_t D>
+static auto impl_pdep(const std::array<uint32_t, D>& c, unsigned = 0) noexcept -> typename std::enable_if<D == 1, uint32_t>::type {return impl_pdep(c[0]                        );}
+
+template <size_t D>
+static auto impl_pdep(const std::array<uint32_t, D>& c, unsigned = 0) noexcept -> typename std::enable_if<D == 2, uint32_t>::type {return impl_pdep(c[0], c[1]                  );}
+
+template <size_t D>
+static auto impl_pdep(const std::array<uint32_t, D>& c, unsigned = 0) noexcept -> typename std::enable_if<D == 3, uint32_t>::type {return impl_pdep(c[0], c[1], c[2]            );}
+
+template <size_t D>
+static auto impl_pdep(const std::array<uint32_t, D>& c, unsigned = 0) noexcept -> typename std::enable_if<D == 4, uint32_t>::type {return impl_pdep(c[0], c[1], c[2], c[3]      );}
+
+template <size_t D>
+static auto impl_pdep(const std::array<uint32_t, D>& c, unsigned = 0) noexcept -> typename std::enable_if<D == 5, uint32_t>::type {return impl_pdep(c[0], c[1], c[2], c[3], c[4]);}
+#endif
+
+////////////////////////////////
+// BENCHMARK
+
+// some infra-structure to automatically generate benchmarks:
+template <size_t D, typename Impl>
+static void do_benchmark(benchmark::State& state, Impl impl) {
+    const auto targetLevel = static_cast<unsigned>(state.range(0));
+
+    std::mt19937_64 prng(0);
+    std::uniform_int_distribution<T> distr;
+
+    std::vector< std::array<T, D> > points(123*D + 234*targetLevel);
+
+    int i = 0;
+    for(auto& pt : points) {
+        if (i < D) {
+            for(int j = 0; j < D; j++)
+                pt[j] = -1 * (i == j);
+        } else {
+            std::generate(pt.begin(), pt.end(), [&] { return distr(prng); });
+        }
+
+        // cross-reference with naive implementation
+        {
+            const auto sig_mask = static_cast<uint32_t>((1llu << targetLevel * D) - 1);
+            auto res = impl(pt, targetLevel);
+            const auto ref = impl_naive<D>(pt, targetLevel) & sig_mask;
+            const auto test = res & sig_mask;
+            assert(ref == test);
+        }
+
+        i++;
+    }
+
+    const auto* it = points.data();
+    const auto* end = it + points.size();
+
+    for (auto _ : state) {
+#ifdef CHECK_XREF_ONLY
+    state.SkipWithError("Measurements skipped due to CHECK_XREF_ONLY");
+#endif
+
+        auto res = impl(*it, targetLevel);
+        benchmark::DoNotOptimize(res);
+        if (++it == end) it = points.data();
+    }
+}
+
+#define ADD_IMPL_BENCHMARK(X) \
+ template <size_t D> \
+ static void BM_ ## X (benchmark::State& state) {do_benchmark<D>(state, impl_ ## X<D>);} \
+ BENCHMARK_TEMPLATE(BM_ ## X, 1)->RangeMultiplier(2)->Range(1, 32); \
+ BENCHMARK_TEMPLATE(BM_ ## X, 2)->RangeMultiplier(2)->Range(1, 16); \
+ BENCHMARK_TEMPLATE(BM_ ## X, 3)->RangeMultiplier(2)->Range(1, 10); \
+ BENCHMARK_TEMPLATE(BM_ ## X, 4)->RangeMultiplier(2)->Range(1,  8); \
+ BENCHMARK_TEMPLATE(BM_ ## X, 5)->RangeMultiplier(2)->Range(1,  6);
+
+
 ADD_IMPL_BENCHMARK(naive)
-ADD_IMPL_BENCHMARK(pdep)
+ADD_IMPL_BENCHMARK(clever)
+ADD_IMPL_BENCHMARK(pattern)
+
+#ifdef USE_PDEP
+    ADD_IMPL_BENCHMARK(pdep)
+#endif
