@@ -1,0 +1,904 @@
+{
+  "context": {
+    "date": "2019-02-25 22:03:43",
+    "host_name": "ryzpen",
+    "executable": "./bitinerleaving-benchmark",
+    "num_cpus": 16,
+    "mhz_per_cpu": 4000,
+    "cpu_scaling_enabled": true,
+    "caches": [
+      {
+        "type": "Data",
+        "level": 1,
+        "size": 32000000,
+        "num_sharing": 2
+      },
+      {
+        "type": "Instruction",
+        "level": 1,
+        "size": 64000000,
+        "num_sharing": 2
+      },
+      {
+        "type": "Unified",
+        "level": 2,
+        "size": 512000000,
+        "num_sharing": 2
+      },
+      {
+        "type": "Unified",
+        "level": 3,
+        "size": 8192000000,
+        "num_sharing": 8
+      }
+    ],
+    "load_avg": [2.68,1.08,0.39],
+    "library_build_type": "release"
+  },
+  "benchmarks": [
+    {
+      "name": "BM_naive<1>/1",
+      "run_name": "BM_naive<1>/1",
+      "run_type": "iteration",
+      "iterations": 1000000000,
+      "real_time": 2.8521926500002337e-01,
+      "cpu_time": 2.8521076200000001e-01,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_naive<1>/2",
+      "run_name": "BM_naive<1>/2",
+      "run_type": "iteration",
+      "iterations": 1000000000,
+      "real_time": 2.7165206899996974e-01,
+      "cpu_time": 2.7163580299999995e-01,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_naive<1>/4",
+      "run_name": "BM_naive<1>/4",
+      "run_type": "iteration",
+      "iterations": 1000000000,
+      "real_time": 2.6226455599999099e-01,
+      "cpu_time": 2.6225396599999995e-01,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_naive<1>/8",
+      "run_name": "BM_naive<1>/8",
+      "run_type": "iteration",
+      "iterations": 1000000000,
+      "real_time": 2.5679870500005109e-01,
+      "cpu_time": 2.5678902500000000e-01,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_naive<1>/16",
+      "run_name": "BM_naive<1>/16",
+      "run_type": "iteration",
+      "iterations": 1000000000,
+      "real_time": 2.5379338899995219e-01,
+      "cpu_time": 2.5378276799999999e-01,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_naive<1>/32",
+      "run_name": "BM_naive<1>/32",
+      "run_type": "iteration",
+      "iterations": 1000000000,
+      "real_time": 2.5222728599999300e-01,
+      "cpu_time": 2.5221295399999999e-01,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_naive<2>/1",
+      "run_name": "BM_naive<2>/1",
+      "run_type": "iteration",
+      "iterations": 459759661,
+      "real_time": 1.5222155059837175e+00,
+      "cpu_time": 1.5221272272514577e+00,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_naive<2>/2",
+      "run_name": "BM_naive<2>/2",
+      "run_type": "iteration",
+      "iterations": 302571219,
+      "real_time": 2.3319363894950547e+00,
+      "cpu_time": 2.3317685414090890e+00,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_naive<2>/4",
+      "run_name": "BM_naive<2>/4",
+      "run_type": "iteration",
+      "iterations": 242309000,
+      "real_time": 2.8967871767039575e+00,
+      "cpu_time": 2.8965648531420616e+00,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_naive<2>/8",
+      "run_name": "BM_naive<2>/8",
+      "run_type": "iteration",
+      "iterations": 148541894,
+      "real_time": 4.7104730130879826e+00,
+      "cpu_time": 4.7100879769312733e+00,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_naive<2>/16",
+      "run_name": "BM_naive<2>/16",
+      "run_type": "iteration",
+      "iterations": 83485950,
+      "real_time": 8.3840610785396841e+00,
+      "cpu_time": 8.3833071313197021e+00,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_naive<3>/1",
+      "run_name": "BM_naive<3>/1",
+      "run_type": "iteration",
+      "iterations": 346611148,
+      "real_time": 2.0152808558828736e+00,
+      "cpu_time": 2.0150775704421386e+00,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_naive<3>/2",
+      "run_name": "BM_naive<3>/2",
+      "run_type": "iteration",
+      "iterations": 231518421,
+      "real_time": 3.0238791365980955e+00,
+      "cpu_time": 3.0235803741940730e+00,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_naive<3>/4",
+      "run_name": "BM_naive<3>/4",
+      "run_type": "iteration",
+      "iterations": 193554849,
+      "real_time": 3.6081386108803892e+00,
+      "cpu_time": 3.6077877800932825e+00,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_naive<3>/8",
+      "run_name": "BM_naive<3>/8",
+      "run_type": "iteration",
+      "iterations": 108593778,
+      "real_time": 6.4473132429381517e+00,
+      "cpu_time": 6.4466589789333950e+00,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_naive<3>/10",
+      "run_name": "BM_naive<3>/10",
+      "run_type": "iteration",
+      "iterations": 96610542,
+      "real_time": 7.2361452542099398e+00,
+      "cpu_time": 7.2353836189015395e+00,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_naive<4>/1",
+      "run_name": "BM_naive<4>/1",
+      "run_type": "iteration",
+      "iterations": 304029024,
+      "real_time": 2.3007844112936344e+00,
+      "cpu_time": 2.3005181603977376e+00,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_naive<4>/2",
+      "run_name": "BM_naive<4>/2",
+      "run_type": "iteration",
+      "iterations": 190643946,
+      "real_time": 3.6719173080900669e+00,
+      "cpu_time": 3.6714929515779122e+00,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_naive<4>/4",
+      "run_name": "BM_naive<4>/4",
+      "run_type": "iteration",
+      "iterations": 153476758,
+      "real_time": 4.5601298666994516e+00,
+      "cpu_time": 4.5595544180051091e+00,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_naive<4>/8",
+      "run_name": "BM_naive<4>/8",
+      "run_type": "iteration",
+      "iterations": 83744510,
+      "real_time": 8.3591253444555615e+00,
+      "cpu_time": 8.3580428854380902e+00,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_naive<5>/1",
+      "run_name": "BM_naive<5>/1",
+      "run_type": "iteration",
+      "iterations": 232051429,
+      "real_time": 3.0140241670308288e+00,
+      "cpu_time": 3.0136153567923083e+00,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_naive<5>/2",
+      "run_name": "BM_naive<5>/2",
+      "run_type": "iteration",
+      "iterations": 154618838,
+      "real_time": 4.5285617138066110e+00,
+      "cpu_time": 4.5279380769890425e+00,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_naive<5>/4",
+      "run_name": "BM_naive<5>/4",
+      "run_type": "iteration",
+      "iterations": 123672980,
+      "real_time": 5.6450855069561969e+00,
+      "cpu_time": 5.6442979056540894e+00,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_naive<5>/6",
+      "run_name": "BM_naive<5>/6",
+      "run_type": "iteration",
+      "iterations": 84464544,
+      "real_time": 8.2876572920349556e+00,
+      "cpu_time": 8.2864622817356501e+00,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_clever<1>/1",
+      "run_name": "BM_clever<1>/1",
+      "run_type": "iteration",
+      "iterations": 1000000000,
+      "real_time": 2.8512624699999378e-01,
+      "cpu_time": 2.8508604799999659e-01,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_clever<1>/2",
+      "run_name": "BM_clever<1>/2",
+      "run_type": "iteration",
+      "iterations": 1000000000,
+      "real_time": 2.7142545000003793e-01,
+      "cpu_time": 2.7138287000000005e-01,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_clever<1>/4",
+      "run_name": "BM_clever<1>/4",
+      "run_type": "iteration",
+      "iterations": 1000000000,
+      "real_time": 2.6223145899996325e-01,
+      "cpu_time": 2.6219206000000028e-01,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_clever<1>/8",
+      "run_name": "BM_clever<1>/8",
+      "run_type": "iteration",
+      "iterations": 1000000000,
+      "real_time": 2.5678024600006211e-01,
+      "cpu_time": 2.5674182999999928e-01,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_clever<1>/16",
+      "run_name": "BM_clever<1>/16",
+      "run_type": "iteration",
+      "iterations": 1000000000,
+      "real_time": 2.5379215999998905e-01,
+      "cpu_time": 2.5375550799999758e-01,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_clever<1>/32",
+      "run_name": "BM_clever<1>/32",
+      "run_type": "iteration",
+      "iterations": 1000000000,
+      "real_time": 2.5223374999995940e-01,
+      "cpu_time": 2.5219572399999990e-01,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_clever<2>/1",
+      "run_name": "BM_clever<2>/1",
+      "run_type": "iteration",
+      "iterations": 457965775,
+      "real_time": 1.5300164428227403e+00,
+      "cpu_time": 1.5297900765619392e+00,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_clever<2>/2",
+      "run_name": "BM_clever<2>/2",
+      "run_type": "iteration",
+      "iterations": 454870601,
+      "real_time": 1.5381798745880875e+00,
+      "cpu_time": 1.5379494881886200e+00,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_clever<2>/4",
+      "run_name": "BM_clever<2>/4",
+      "run_type": "iteration",
+      "iterations": 455846417,
+      "real_time": 1.5321222301062261e+00,
+      "cpu_time": 1.5318831298393198e+00,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_clever<2>/8",
+      "run_name": "BM_clever<2>/8",
+      "run_type": "iteration",
+      "iterations": 457464096,
+      "real_time": 1.5299383844978198e+00,
+      "cpu_time": 1.5297041540938787e+00,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_clever<2>/16",
+      "run_name": "BM_clever<2>/16",
+      "run_type": "iteration",
+      "iterations": 457473140,
+      "real_time": 1.5303249629038154e+00,
+      "cpu_time": 1.5300761220647878e+00,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_clever<3>/1",
+      "run_name": "BM_clever<3>/1",
+      "run_type": "iteration",
+      "iterations": 347498168,
+      "real_time": 2.0146620657865499e+00,
+      "cpu_time": 2.0143448756253575e+00,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_clever<3>/2",
+      "run_name": "BM_clever<3>/2",
+      "run_type": "iteration",
+      "iterations": 230296530,
+      "real_time": 3.0430177997036099e+00,
+      "cpu_time": 3.0425316612456124e+00,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_clever<3>/4",
+      "run_name": "BM_clever<3>/4",
+      "run_type": "iteration",
+      "iterations": 187021579,
+      "real_time": 3.7452026859423433e+00,
+      "cpu_time": 3.7445909437006795e+00,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_clever<3>/8",
+      "run_name": "BM_clever<3>/8",
+      "run_type": "iteration",
+      "iterations": 108239532,
+      "real_time": 6.4674040072530365e+00,
+      "cpu_time": 6.4663379642107044e+00,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_clever<3>/10",
+      "run_name": "BM_clever<3>/10",
+      "run_type": "iteration",
+      "iterations": 96224353,
+      "real_time": 7.2439864053966705e+00,
+      "cpu_time": 7.2427751839495391e+00,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_clever<4>/1",
+      "run_name": "BM_clever<4>/1",
+      "run_type": "iteration",
+      "iterations": 320046723,
+      "real_time": 2.1855584067329974e+00,
+      "cpu_time": 2.1851963096025844e+00,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_clever<4>/2",
+      "run_name": "BM_clever<4>/2",
+      "run_type": "iteration",
+      "iterations": 320724831,
+      "real_time": 2.1818576123906119e+00,
+      "cpu_time": 2.1814893652559171e+00,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_clever<4>/4",
+      "run_name": "BM_clever<4>/4",
+      "run_type": "iteration",
+      "iterations": 321038156,
+      "real_time": 2.1807190202027313e+00,
+      "cpu_time": 2.1803472793433301e+00,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_clever<4>/8",
+      "run_name": "BM_clever<4>/8",
+      "run_type": "iteration",
+      "iterations": 320929825,
+      "real_time": 2.1812310806575055e+00,
+      "cpu_time": 2.1808581860536087e+00,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_clever<5>/1",
+      "run_name": "BM_clever<5>/1",
+      "run_type": "iteration",
+      "iterations": 232047450,
+      "real_time": 3.0140373660645832e+00,
+      "cpu_time": 3.0135131327666076e+00,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_clever<5>/2",
+      "run_name": "BM_clever<5>/2",
+      "run_type": "iteration",
+      "iterations": 154276122,
+      "real_time": 4.5400714894817202e+00,
+      "cpu_time": 4.5392583759656482e+00,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_clever<5>/4",
+      "run_name": "BM_clever<5>/4",
+      "run_type": "iteration",
+      "iterations": 125789215,
+      "real_time": 5.5687712813855299e+00,
+      "cpu_time": 5.5677800040328940e+00,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_clever<5>/6",
+      "run_name": "BM_clever<5>/6",
+      "run_type": "iteration",
+      "iterations": 84472540,
+      "real_time": 8.2884177153906364e+00,
+      "cpu_time": 8.2869441832813582e+00,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_pattern<1>/1",
+      "run_name": "BM_pattern<1>/1",
+      "run_type": "iteration",
+      "iterations": 86367177,
+      "real_time": 8.1579045590438355e+00,
+      "cpu_time": 8.1564218661447612e+00,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_pattern<1>/2",
+      "run_name": "BM_pattern<1>/2",
+      "run_type": "iteration",
+      "iterations": 85394191,
+      "real_time": 8.1634993298318719e+00,
+      "cpu_time": 8.1620521236626313e+00,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_pattern<1>/4",
+      "run_name": "BM_pattern<1>/4",
+      "run_type": "iteration",
+      "iterations": 85781764,
+      "real_time": 8.1449768857624463e+00,
+      "cpu_time": 8.1435072027663100e+00,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_pattern<1>/8",
+      "run_name": "BM_pattern<1>/8",
+      "run_type": "iteration",
+      "iterations": 85655294,
+      "real_time": 8.1578977710349534e+00,
+      "cpu_time": 8.1564495359738114e+00,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_pattern<1>/16",
+      "run_name": "BM_pattern<1>/16",
+      "run_type": "iteration",
+      "iterations": 85706044,
+      "real_time": 8.1656898082934291e+00,
+      "cpu_time": 8.1642286628000189e+00,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_pattern<1>/32",
+      "run_name": "BM_pattern<1>/32",
+      "run_type": "iteration",
+      "iterations": 85945511,
+      "real_time": 8.1702196290397957e+00,
+      "cpu_time": 8.1687367941765121e+00,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_pattern<2>/1",
+      "run_name": "BM_pattern<2>/1",
+      "run_type": "iteration",
+      "iterations": 30486289,
+      "real_time": 2.2964844589645679e+01,
+      "cpu_time": 2.2960626398312904e+01,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_pattern<2>/2",
+      "run_name": "BM_pattern<2>/2",
+      "run_type": "iteration",
+      "iterations": 30478561,
+      "real_time": 2.2970731689071833e+01,
+      "cpu_time": 2.2966540251030921e+01,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_pattern<2>/4",
+      "run_name": "BM_pattern<2>/4",
+      "run_type": "iteration",
+      "iterations": 30537345,
+      "real_time": 2.2926938081877836e+01,
+      "cpu_time": 2.2922797970812361e+01,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_pattern<2>/8",
+      "run_name": "BM_pattern<2>/8",
+      "run_type": "iteration",
+      "iterations": 30543363,
+      "real_time": 2.2922100883260164e+01,
+      "cpu_time": 2.2917895059558475e+01,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_pattern<2>/16",
+      "run_name": "BM_pattern<2>/16",
+      "run_type": "iteration",
+      "iterations": 30556655,
+      "real_time": 2.2912568702300618e+01,
+      "cpu_time": 2.2908386340062417e+01,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_pattern<3>/1",
+      "run_name": "BM_pattern<3>/1",
+      "run_type": "iteration",
+      "iterations": 19247158,
+      "real_time": 3.5978132200086257e+01,
+      "cpu_time": 3.5971452564581426e+01,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_pattern<3>/2",
+      "run_name": "BM_pattern<3>/2",
+      "run_type": "iteration",
+      "iterations": 19341433,
+      "real_time": 3.6139047091288056e+01,
+      "cpu_time": 3.6132374576382276e+01,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_pattern<3>/4",
+      "run_name": "BM_pattern<3>/4",
+      "run_type": "iteration",
+      "iterations": 19097768,
+      "real_time": 3.6292307142912911e+01,
+      "cpu_time": 3.6285570072900825e+01,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_pattern<3>/8",
+      "run_name": "BM_pattern<3>/8",
+      "run_type": "iteration",
+      "iterations": 19502352,
+      "real_time": 3.6160916488429791e+01,
+      "cpu_time": 3.6153926459741946e+01,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_pattern<3>/10",
+      "run_name": "BM_pattern<3>/10",
+      "run_type": "iteration",
+      "iterations": 19373980,
+      "real_time": 3.6137961792050234e+01,
+      "cpu_time": 3.6131207165487062e+01,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_pattern<4>/1",
+      "run_name": "BM_pattern<4>/1",
+      "run_type": "iteration",
+      "iterations": 22287918,
+      "real_time": 3.3749632199834821e+01,
+      "cpu_time": 3.3743193823667156e+01,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_pattern<4>/2",
+      "run_name": "BM_pattern<4>/2",
+      "run_type": "iteration",
+      "iterations": 20617188,
+      "real_time": 3.3944216398473053e+01,
+      "cpu_time": 3.3937875233033502e+01,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_pattern<4>/4",
+      "run_name": "BM_pattern<4>/4",
+      "run_type": "iteration",
+      "iterations": 20457307,
+      "real_time": 3.4214239635744576e+01,
+      "cpu_time": 3.4207635833983481e+01,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_pattern<4>/8",
+      "run_name": "BM_pattern<4>/8",
+      "run_type": "iteration",
+      "iterations": 20850730,
+      "real_time": 3.3820088361415358e+01,
+      "cpu_time": 3.3813671847460341e+01,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_pattern<5>/1",
+      "run_name": "BM_pattern<5>/1",
+      "run_type": "iteration",
+      "iterations": 18263304,
+      "real_time": 3.8274386606064503e+01,
+      "cpu_time": 3.8267098549090932e+01,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_pattern<5>/2",
+      "run_name": "BM_pattern<5>/2",
+      "run_type": "iteration",
+      "iterations": 18281968,
+      "real_time": 3.8310477241838989e+01,
+      "cpu_time": 3.8303258981746524e+01,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_pattern<5>/4",
+      "run_name": "BM_pattern<5>/4",
+      "run_type": "iteration",
+      "iterations": 18267956,
+      "real_time": 3.8321814328876592e+01,
+      "cpu_time": 3.8314356077932395e+01,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_pattern<5>/6",
+      "run_name": "BM_pattern<5>/6",
+      "run_type": "iteration",
+      "iterations": 18075900,
+      "real_time": 3.8811876421092599e+01,
+      "cpu_time": 3.8804444481325994e+01,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_pdep<1>/1",
+      "run_name": "BM_pdep<1>/1",
+      "run_type": "iteration",
+      "iterations": 1000000000,
+      "real_time": 2.8952280299995437e-01,
+      "cpu_time": 2.8946816800000619e-01,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_pdep<1>/2",
+      "run_name": "BM_pdep<1>/2",
+      "run_type": "iteration",
+      "iterations": 1000000000,
+      "real_time": 2.7202649499997733e-01,
+      "cpu_time": 2.7197196400000223e-01,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_pdep<1>/4",
+      "run_name": "BM_pdep<1>/4",
+      "run_type": "iteration",
+      "iterations": 1000000000,
+      "real_time": 2.6254183399998965e-01,
+      "cpu_time": 2.6249225500000506e-01,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_pdep<1>/8",
+      "run_name": "BM_pdep<1>/8",
+      "run_type": "iteration",
+      "iterations": 1000000000,
+      "real_time": 2.5699568999993971e-01,
+      "cpu_time": 2.5694765799999431e-01,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_pdep<1>/16",
+      "run_name": "BM_pdep<1>/16",
+      "run_type": "iteration",
+      "iterations": 1000000000,
+      "real_time": 2.5389803699999902e-01,
+      "cpu_time": 2.5386413200000391e-01,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_pdep<1>/32",
+      "run_name": "BM_pdep<1>/32",
+      "run_type": "iteration",
+      "iterations": 1000000000,
+      "real_time": 2.5228220200006035e-01,
+      "cpu_time": 2.5227845500000257e-01,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_pdep<2>/1",
+      "run_name": "BM_pdep<2>/1",
+      "run_type": "iteration",
+      "iterations": 18871527,
+      "real_time": 3.7092780833261898e+01,
+      "cpu_time": 3.7092904034739512e+01,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_pdep<2>/2",
+      "run_name": "BM_pdep<2>/2",
+      "run_type": "iteration",
+      "iterations": 18880829,
+      "real_time": 3.7075225510488870e+01,
+      "cpu_time": 3.7075145217405918e+01,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_pdep<2>/4",
+      "run_name": "BM_pdep<2>/4",
+      "run_type": "iteration",
+      "iterations": 18881167,
+      "real_time": 3.7075121204109621e+01,
+      "cpu_time": 3.7074736482125402e+01,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_pdep<2>/8",
+      "run_name": "BM_pdep<2>/8",
+      "run_type": "iteration",
+      "iterations": 18882951,
+      "real_time": 3.7071348223061101e+01,
+      "cpu_time": 3.7070827594691103e+01,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_pdep<2>/16",
+      "run_name": "BM_pdep<2>/16",
+      "run_type": "iteration",
+      "iterations": 18902671,
+      "real_time": 3.7031391172182403e+01,
+      "cpu_time": 3.7030985303611430e+01,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_pdep<3>/1",
+      "run_name": "BM_pdep<3>/1",
+      "run_type": "iteration",
+      "iterations": 9536764,
+      "real_time": 7.3390867698933334e+01,
+      "cpu_time": 7.3389443421270528e+01,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_pdep<3>/2",
+      "run_name": "BM_pdep<3>/2",
+      "run_type": "iteration",
+      "iterations": 9537536,
+      "real_time": 7.3392042242357832e+01,
+      "cpu_time": 7.3390610950250192e+01,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_pdep<3>/4",
+      "run_name": "BM_pdep<3>/4",
+      "run_type": "iteration",
+      "iterations": 9536485,
+      "real_time": 7.3402213603862663e+01,
+      "cpu_time": 7.3400510250893859e+01,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_pdep<3>/8",
+      "run_name": "BM_pdep<3>/8",
+      "run_type": "iteration",
+      "iterations": 9536862,
+      "real_time": 7.3395921950016529e+01,
+      "cpu_time": 7.3393249267945606e+01,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_pdep<3>/10",
+      "run_name": "BM_pdep<3>/10",
+      "run_type": "iteration",
+      "iterations": 9544766,
+      "real_time": 7.3394527849088703e+01,
+      "cpu_time": 7.3390994184664876e+01,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_pdep<4>/1",
+      "run_name": "BM_pdep<4>/1",
+      "run_type": "iteration",
+      "iterations": 6396730,
+      "real_time": 1.0943173199431024e+02,
+      "cpu_time": 1.0942639207845058e+02,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_pdep<4>/2",
+      "run_name": "BM_pdep<4>/2",
+      "run_type": "iteration",
+      "iterations": 6396828,
+      "real_time": 1.0942991714018277e+02,
+      "cpu_time": 1.0942442879502079e+02,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_pdep<4>/4",
+      "run_name": "BM_pdep<4>/4",
+      "run_type": "iteration",
+      "iterations": 6396811,
+      "real_time": 1.0942575292594935e+02,
+      "cpu_time": 1.0941962878065293e+02,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_pdep<4>/8",
+      "run_name": "BM_pdep<4>/8",
+      "run_type": "iteration",
+      "iterations": 6403583,
+      "real_time": 1.0931257047811431e+02,
+      "cpu_time": 1.0930566684307924e+02,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_pdep<5>/1",
+      "run_name": "BM_pdep<5>/1",
+      "run_type": "iteration",
+      "iterations": 4826672,
+      "real_time": 1.4503004451099602e+02,
+      "cpu_time": 1.4502179928530614e+02,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_pdep<5>/2",
+      "run_name": "BM_pdep<5>/2",
+      "run_type": "iteration",
+      "iterations": 4812662,
+      "real_time": 1.4576018282603835e+02,
+      "cpu_time": 1.4575081129736455e+02,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_pdep<5>/4",
+      "run_name": "BM_pdep<5>/4",
+      "run_type": "iteration",
+      "iterations": 4807086,
+      "real_time": 1.4568561119979620e+02,
+      "cpu_time": 1.4567593444344379e+02,
+      "time_unit": "ns"
+    },
+    {
+      "name": "BM_pdep<5>/6",
+      "run_name": "BM_pdep<5>/6",
+      "run_type": "iteration",
+      "iterations": 4815021,
+      "real_time": 1.4535662876650312e+02,
+      "cpu_time": 1.4534604085838896e+02,
+      "time_unit": "ns"
+    }
+  ]
+}
