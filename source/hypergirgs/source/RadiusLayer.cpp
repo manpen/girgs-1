@@ -35,6 +35,7 @@ RadiusLayer::RadiusLayer(double r_min, double r_max, unsigned int targetLevel,
 std::vector<RadiusLayer> RadiusLayer::buildPartition(const std::vector<double>& radii, const std::vector<double>& angles,
                             const double R, const double layer_height, bool enable_profiling) {
 
+    assert(R > 0);
     assert(radii.size() == angles.size());
     assert(layer_height <= R);
 
@@ -84,8 +85,11 @@ std::vector<RadiusLayer> RadiusLayer::buildPartition(const std::vector<double>& 
             assert(0 <= angles[i] && angles[i] < 2*PI);
 
             const auto layer = radius_to_layer(radii[i]);
+            assert(layer < first_cell_of_layer.size());
             const auto level = level_of_layer[layer];
             const auto cell = first_cell_of_layer[layer] + AngleHelper::cellForPoint(angles[i], level);
+            assert(0 <= cell);
+            assert(cell <= max_cell_id);
             points[i] = Point(i, radii[i], angles[i], cell);
         }
     }

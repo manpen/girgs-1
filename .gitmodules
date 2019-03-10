@@ -1,0 +1,3 @@
+[submodule "related/networkit"]
+	path = related/networkit
+	url = https://github.com/manpen/networkit.git

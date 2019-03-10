@@ -1,6 +1,9 @@
 #include <iostream>
 #include <sstream>
-#include <iomanip>
+
+#ifdef __unix__
+#include <unistd.h> // gethostname
+#endif
 
 #include <algorithm>
 #include <cassert>
@@ -9,16 +12,18 @@
 #include <hypergirgs/Hyperbolic.h>
 #include <hypergirgs/ScopedTimer.h>
 
-#include "../dev3/CounterPerThread.h" // TODO don't!
+#include "CounterPerThread.h"
 
 
-void benchmark(std::ostream& os, unsigned int n, unsigned int avgDeg, double alpha, double T, unsigned int seed = 0) {
+double benchmark(std::ostream& os, const std::string& host, int iter, unsigned int n, unsigned int avgDeg, double alpha, double T, unsigned int seed = 0) {
     CounterPerThread<uint64_t> counter_num_edges;
+
+    auto R = hypergirgs::calculateNkGenRadius(n, alpha, T, avgDeg);
+    std::cout << "TargetRadius: " << R << "\n";
 
     double time_total, time_points, time_preprocess, time_sample;
     {
         ScopedTimer tot_timer("Total", time_total);
-        auto R = hypergirgs::calculateRadius(n, alpha, T, avgDeg);
 
         // Sample points
         std::vector<double> radii, angles;
@@ -38,69 +43,94 @@ void benchmark(std::ostream& os, unsigned int n, unsigned int avgDeg, double alp
         // Generate edges
         {
             ScopedTimer timer("Generate edges", time_sample);
-            generator.generate(seed++);
+            generator.generate(seed);
         }
     }
 
     const auto num_edges = counter_num_edges.total();
+    std::cout << "Generated " << num_edges << " edges (avg-deg: " << (2.0 * num_edges / n) << ")\n";
 
     // Logging
     {
         std::stringstream ss;
-        ss << "[DATA] "
-           << std::setw(11) << "SimplePP,"
-           << std::setw(10) << n << ","
-           << std::setw(10) << avgDeg << ","
-           << std::setw(10) << alpha << ","
-           << std::setw(10) << T << ","
-           << std::setw(10) << time_total      << ","
-           << std::setw(10) << time_points     << ","
-           << std::setw(10) << time_preprocess << ","
-           << std::setw(10) << time_sample << ","
-           << std::setw(10) << num_edges << ","
-           << std::setw(10) << (2.0 * num_edges / n);
+
+        ss << "[CSV] "
+           << host
+           << "," << "hypergirg"
+           << "," << iter
+           << "," << T
+           << "," << alpha
+           << "," << n
+           << "," << avgDeg
+           << "," << R
+           << "," << time_total
+           << "," << num_edges
+           << "," << time_points
+           << "," << time_preprocess
+           << "," << time_total;
 
         os << ss.str() << std::endl;
     }
+
+    return time_total;
 }
 
 int main(int argc, char* argv[]) {
-    const auto alpha = 0.75; // ple = 2*alpha+1
-    const auto T = 0;
     unsigned int seed = 0;
+    const unsigned n0 = 1e4;
+    const unsigned nMax = 1e6;
+    const unsigned steps_per_dec = 3;
+    const double timeout = 100 * 1e3; // ms
+
+    // obtain hostname
+    const auto host = [] {
+#ifdef __unix__
+        char hostname[128];
+        if (gethostname(hostname, 128)) {
+            return std::string("n/a");
+        }
+        return std::string(hostname);
+#else
+        return "n/a";
+#endif
+    }();
+
+    if (argc > 1)
+        seed = atoi(argv[1]);
 
     // Print Header
     {
         std::stringstream ss;
-        ss << "[DATA] "
-           << std::setw(11) << "algo,"
-           << std::setw(11) << "n,"
-           << std::setw(11) << "avgDeg,"
-           << std::setw(11) << "alpha,"
-           << std::setw(11) << "T,"
-           << std::setw(11) << "TimeTotal,"
-           << std::setw(11) << "TimePoints,"
-           << std::setw(11) << "TimePrepro,"
-           << std::setw(11) << "TimeEdges,"
-           << std::setw(11) << "GenNumEdge,"
-           << std::setw(10) << "GenAvgDeg";
 
+        ss << "[CSV] "
+           "host,algo,iter,T,alpha,n,deg,R,time,edges,samplingTime,preprocessTime,totalTime";
 
         std::cout << ss.str() << std::endl;
     }
 
-
     for(unsigned int iter = 0; iter != 5; ++iter) {
-        for (unsigned int n = 1024; n < (2 << 21); n *= 2) {
-            for (unsigned avgDeg : {10, 100, 1000}) {
-                if (avgDeg * 10 > n) continue;
+        for(const double T : {0.0, 0.5, 2.0, 5.0, 10.0}) {
+            if (T > 0) continue;
+        for (const double ple : {3.0}) {
+        for (const int avgDeg : {10, 100}) {
+            const auto alpha = (ple - 1.0) / 2.0;
+            int ni = 0;
+            bool skip = false;
 
-                std::clog << "iter=" << iter << ", n=" << n << ", avgDeg=" << avgDeg << "\n";
+            for(auto n = n0; n <= nMax; n = n0 * std::pow(10.0, 1.0 * ni / steps_per_dec), ++ni) {
+                std::clog << "\033[1miter=" << iter << ", T=" << T << ", PLE=" << ple << ", n=" << n << ", avgDeg=" << avgDeg << "\033[21m\n";
 
-                benchmark(std::cout, n, avgDeg, alpha, T, seed);
+                double time;
+                if (!skip) {
+                    // if last (smaller) problem took too long, we skip this one
+                    // we do not use break to make sure seed stays consistent
+                    time = benchmark(std::cout, host, iter, n, avgDeg, alpha, T, seed);
+                    skip |= time > timeout;
+                }
+
                 seed += 10;
             }
-        }
+        }}}
     }
 
     return 0;
